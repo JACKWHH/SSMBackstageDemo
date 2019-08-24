@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wdhcr.mapper.UserMapper">
+<!--    添加用户的方法-->
+    <insert id="addUser" parameterType="com.wdhcr.po.User" >
+        insert into user03(name,age,password,email) values(#{name},#{age},#{password},#{email})
+    </insert>
+<!--    deleteUser-->
+    <delete id="deleteUser" parameterType="int">
+        delete from user03 where id = #{id}
+    </delete>
+<!--    updateUser-->
+    <update id="updateUser" parameterType="com.wdhcr.po.User">
+        update user03 set name=#{name},age=#{age},password=#{password},email=#{email} where id=#{id}
+    </update>
+<!--    findUserById-->
+    <select id="findUserById" parameterType="int" resultType="com.wdhcr.po.User">
+        select * from user03 where id = #{id}
+    </select>
+<!--    getAllUser-->
+    <select id="getAllUser" resultType="com.wdhcr.po.User">
+        select * from user03
+    </select>
+<!--    updatePassword-->
+    <update id="updatePassword" parameterType="com.wdhcr.po.User" >
+        update user03 set password=#{password} where email=#{email} and name = #{name}
+    </update>
+
+
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wdhcr.mapper.GoodsMapper">
+<!--    addGood-->
+    <insert id="addGood" parameterType="com.wdhcr.po.Goods">
+        insert into goods(name,type,price,number) values(#{name},#{type},#{price},#{number})
+    </insert>
+
+<!--    deleteGood-->
+    <delete id="deleteGood" parameterType="int" >
+        delete from goods where id = #{id}
+    </delete>
+
+<!--    updateGood-->
+    <update id="updateGood" parameterType="com.wdhcr.po.Goods" >
+        update goods set name=#{name},type=#{type},price=#{price},number=#{number} where id=#{id}
+    </update>
+
+<!--    findGoodById-->
+    <select id="findGoodById" parameterType="int" resultType="com.wdhcr.po.Goods">
+        select * from goods where id = #{id}
+    </select>
+
+<!--    getAllGoods-->
+    <select id="getAllGoods" resultType="com.wdhcr.po.Goods">
+        select * from goods
+    </select>
+</mapper>
