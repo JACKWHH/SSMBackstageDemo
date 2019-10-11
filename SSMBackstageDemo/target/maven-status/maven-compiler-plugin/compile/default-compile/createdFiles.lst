@@ -3,10 +3,12 @@ com\wdhcr\service\GoodsServicesImp.class
 com\wdhcr\mapper\GoodsMapper.class
 com\wdhcr\service\UserServicesImp.class
 com\wdhcr\po\Goods.class
+com\wdhcr\tools\ImageUtils.class
 com\wdhcr\service\UserServices.class
 com\wdhcr\controller\UserController.class
 com\wdhcr\tools\MailUtil.class
 com\wdhcr\tools\MailUtil$1.class
 com\wdhcr\controller\GoodsController.class
+com\wdhcr\controller\CheckController.class
 com\wdhcr\service\GoodsServices.class
 com\wdhcr\mapper\UserMapper.class

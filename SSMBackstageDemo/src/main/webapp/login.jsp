@@ -76,16 +76,25 @@
     function d() {
         var user = document.getElementById("user").value;
         var password = document.getElementById("password").value;
-        if (user == null ||user ==""){
+        if (user == null || user == "") {
             alert("请输入用户名")
             return false;
         }
-        if (password == null || password ==""){
+        if (password == null || password == "") {
             alert("请输入密码")
 
             return false;
         }
 
+    }
+</script>
+    <!-- 验证码图片点击切换 -->
+    <!-- 通过Date来改变每次访问的url不同 -->
+<script>
+    function Reload() {
+        document.getElementById("CreateCheckCode").src =
+            // 获取当前时间使其请求不重复
+            document.getElementById("CreateCheckCode").src + "?nocache=" + new Date().getTime() + ".do";
     }
 
 </script>
@@ -118,7 +127,8 @@
 
                     <i class="icon-user"></i>
 
-                    <input class="m-wrap placeholder-no-fix" type="text" placeholder="用户名/手机号/微信号" name="username" id="user"/>
+                    <input class="m-wrap placeholder-no-fix" type="text" placeholder="用户名/手机号/微信号" name="username"
+                           id="user"/>
 
                 </div>
 
@@ -136,13 +146,41 @@
 
                     <i class="icon-lock"></i>
 
-                    <input class="m-wrap placeholder-no-fix" type="password" placeholder="密码" name="password" id="password"/>
+                    <input class="m-wrap placeholder-no-fix" type="password" placeholder="密码" name="password"
+                           id="password"/>
 
                 </div>
 
             </div>
 
         </div>
+        <div class="control-group">
+
+            <label class="control-label visible-ie8 visible-ie9">验证码</label>
+
+            <div class="controls">
+
+                <div class="input-icon left">
+
+                    <i class="icon-book"></i>
+
+                    <%-- 这里是输入验证码图片中的字符，传入后台进行验证--%>
+                    <input style="width:49%;float:left;height: 24px;" type="text" placeholder="验证码" name="check"
+                           id="check"/>
+
+                    <span style="cursor:pointer;float: right;height: 34px; width: 30%;">
+                    <%-- 这里需要注意src的路径，为controller层指定的路径@RequestMapping(value = "/checkCode")的路径--%>
+                    <%--Reload()方法实现点击一次请求一次后台controller--%>
+                        <img id="CreateCheckCode" style="width: 100%;height:100%;" src="checkCode.do"
+                             onclick="Reload()"/>
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
 
         <div class="form-actions">
 
@@ -191,25 +229,25 @@
     <!-- end login form -->
 
     <!-- begin forgot password form -->
-<script>
-function em() {
-    var name = document.getElementById("name1").value;
-    var email1 = document.getElementById("email1").value;
-    if (name == null|| name ==""){
-        alert("请输入要验证的用户名");
-        return false;
-    }
-    if (email1 == null||email1 == ""){
-        alert("请输入要验证的邮箱");
-        return false;
-    }
-    return true;
+    <script>
+        function em() {
+            var name = document.getElementById("name1").value;
+            var email1 = document.getElementById("email1").value;
+            if (name == null || name == "") {
+                alert("请输入要验证的用户名");
+                return false;
+            }
+            if (email1 == null || email1 == "") {
+                alert("请输入要验证的邮箱");
+                return false;
+            }
+            return true;
 
 
-}
-</script>
+        }
+    </script>
     <form class="form-vertical forget-form" action="PasswordFindServlet.do" method="post">
-    <input type="hidden" name="do" value="email">
+        <input type="hidden" name="do" value="email">
         <h3 class="">忘记密码 ?</h3>
 
 
@@ -226,7 +264,8 @@ function em() {
 
                     <i class="icon-user"></i>
 
-                    <input class="m-wrap placeholder-no-fix" type="text" placeholder="用户名/手机号/微信号" name="username" id="name1"/>
+                    <input class="m-wrap placeholder-no-fix" type="text" placeholder="用户名/手机号/微信号" name="username"
+                           id="name1"/>
 
                 </div>
 
@@ -280,7 +319,7 @@ function em() {
 
             var age = document.getElementById("age").value;
             var email = document.getElementById("email").value;
-        //alert(name,password,password1,age,email)
+            //alert(name,password,password1,age,email)
 
             if (name == null || name == "") {
                 alert("用户名不能为空")

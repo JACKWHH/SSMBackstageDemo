@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -23,17 +24,17 @@ public class UserController {
 
     //用户登录
     @RequestMapping(value = "/LoginServlet")
-    public void login(String username, String password, HttpServletRequest request, HttpServletResponse response) {
+    public void login(String username, String password, String check, HttpServletRequest request, HttpServletResponse response) {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&" + username + "\t" + password);
+        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&" + username + "\t" + password+"\t"+check);
         //后台打印数据库信息
         List<User> allUser = userServicesImp.getAllUser();
         for (User user : allUser) {
             System.out.println(user.toString());
         }
-
-
+        //获取请求会话 的session域
+        HttpSession session = request.getSession(true);
         PrintWriter writer = null;
         try {
             writer = response.getWriter();
@@ -45,13 +46,22 @@ public class UserController {
             for (User user : allUser) {
                 //判断用户名，密码
                 if (username.equals(user.getName()) && password.equals(user.getPassword())) {
-                    try {
-                        //验证成功后，转发到index页面
-                        request.getRequestDispatcher("index.jsp").forward(request, response);
-                    } catch (ServletException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    //创建session域的对象，获取域中的数据
+                    if (session.getAttribute("randCheckCode").toString().equalsIgnoreCase(check)) {
+                        try {
+                            //验证成功后，转发到index页面
+                            request.getRequestDispatcher("index.jsp").forward(request, response);
+                        } catch (ServletException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }else {
+
+                        //验证码输入错误，弹窗提示，并返回到login页面
+                        writer.println("<script>alert('登录失败了！验证码错误！！！');window.location='login.jsp';</script>");
+
+
                     }
                 } else {
 
@@ -231,14 +241,12 @@ public class UserController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (row>0){
-
-
+        if (row > 0) {
             writer.println("<script>\n" +
                     "    alert(\"删除成功！！\");\n" +
                     "    window.location = \"index.jsp\";\n" +
                     "</script>");
-        }else {
+        } else {
             writer.println("<script>\n" +
                     "    alert(\"删除失败！！\");\n" +
                     "    window.location = \"index.jsp\";\n" +

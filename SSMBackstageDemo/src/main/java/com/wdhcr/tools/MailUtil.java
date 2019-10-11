@@ -1,4 +1,4 @@
-﻿package com.wdhcr.tools;
+package com.wdhcr.tools;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -30,14 +30,14 @@ public class MailUtil {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 //填写邮箱号和授权码
-                return new PasswordAuthentication("163邮箱", "授权码");   邮箱
+                return new PasswordAuthentication("w18700852607@163.com", "wdhcr123");
             }
         });
         //创建邮件对象
         MimeMessage message = new MimeMessage(session);
         //设置发件人
         try {
-            message.setFrom(new InternetAddress("邮箱", "物流后台管理系统", "UTF-8")); 邮箱
+            message.setFrom(new InternetAddress("w18700852607@163.com", "物流后台管理系统", "UTF-8"));
             //设置收件人
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
             //设置邮箱主题
